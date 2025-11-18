@@ -6,11 +6,11 @@ use App\Http\Controllers\bannerController;
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth', 'admin')->prefix('admin')->name('admin.')->group(function(){
-Route::get('dasboard',[AdminController::class, 'index'])
-->name('dasboard');
+Route::redirect('/admin', '/admin/dashboard');
 
-Route::get('/admin/banner', [bannerController::class, 'index'])->name('admin.banner');
+Route::middleware('auth', 'admin')->prefix('admin')->group(function(){
+    Route::get('/dasboard',[AdminController::class, 'index'])->name('dasboard');
+    Route::get('/banner', [bannerController::class, 'index'])->name('admin.banner');
 
 
 });
