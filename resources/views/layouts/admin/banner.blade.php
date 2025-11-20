@@ -20,7 +20,7 @@
                 Thêm Banner Mới
             </button>
         </header>
-        
+
         <div class="glass-card p-6 mb-8 fade-in">
             <h2 class="text-xl font-semibold text-white mb-4">Thống kê Banner</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="glass-card p-6 fade-in">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                 <h2 class="text-xl font-semibold text-white">Danh sách Banner</h2>
@@ -69,7 +69,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div id="bannersList" class="space-y-4">
                 <!-- Banner items will be dynamically added here -->
                 <div class="empty-state">
@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Modal Thêm/Sửa Banner -->
     <div id="bannerModal" class="modal-overlay hidden">
         <div class="modal-content glass-card p-6">
@@ -90,44 +90,44 @@
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
-            
+
             <form id="bannerForm">
                 <input type="hidden" id="bannerId">
-                
+
                 <div class="form-group">
                     <label for="bannerTitle" class="form-label">Tiêu đề banner</label>
                     <input type="text" id="bannerTitle" class="w-full" placeholder="Nhập tiêu đề banner" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="bannerDescription" class="form-label">Mô tả</label>
                     <textarea id="bannerDescription" rows="3" class="w-full" placeholder="Nhập mô tả cho banner"></textarea>
                 </div>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div class="form-group">
                         <label for="bannerImage" class="form-label">URL hình ảnh</label>
                         <input type="text" id="bannerImage" class="w-full" placeholder="https://example.com/image.jpg" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="bannerLink" class="form-label">Liên kết đích</label>
                         <input type="text" id="bannerLink" class="w-full" placeholder="https://example.com">
                     </div>
                 </div>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div class="form-group">
                         <label for="bannerStartDate" class="form-label">Ngày bắt đầu</label>
                         <input type="date" id="bannerStartDate" class="w-full" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="bannerEndDate" class="form-label">Ngày kết thúc</label>
                         <input type="date" id="bannerEndDate" class="w-full" required>
                     </div>
                 </div>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div class="form-group">
                         <label for="bannerPosition" class="form-label">Vị trí hiển thị</label>
@@ -138,7 +138,7 @@
                             <option value="sidebar">Thanh bên</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="bannerStatus" class="form-label">Trạng thái</label>
                         <select id="bannerStatus" class="w-full">
@@ -147,7 +147,7 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="flex justify-end gap-3">
                     <button type="button" id="cancelBtn" class="px-4 py-2 rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-700 transition">
                         Hủy bỏ
@@ -160,5 +160,5 @@
             </form>
         </div>
     </div>
-    
+
 </body>

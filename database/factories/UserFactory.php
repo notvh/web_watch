@@ -27,18 +27,26 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => bcrypt('password'), // hoặc Hash::make('password')
+            'phone' => '0' . fake()->randomElement(['3', '5', '7', '8', '9']) . fake()->numberBetween(10000000, 99999999),
+            'role' => fake()->randomElement(['customer', 'customer', 'customer', 'staff']), // 75% customer
+            'is_active' => true,
+            'address' => fake()->streetAddress,
+            'province' => fake()->city,
+            'district' => 'Quận ' . fake()->numberBetween(1, 12),
+            'ward' => 'Phường ' . fake()->numberBetween(1, 20),
             'remember_token' => Str::random(10),
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
+    // Tạo admin mẫu
+    public function admin(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
+        return $this->state(fn() => [
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'role' => 'admin',
+            'is_active' => true,
         ]);
     }
 }

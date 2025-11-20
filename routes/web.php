@@ -24,10 +24,9 @@ Route::get('/users', [UserConTroller::class, 'index'])->middleware('access.time'
 
 
 
-Route::controller(HomeController::class)-> group(function(){
+Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/about', 'about');
-
 });
 Route::prefix('users')->controller(UsersController::class)->group(function () {
     Route::get('/', 'index')->name('users.index');
@@ -36,24 +35,18 @@ Route::prefix('users')->controller(UsersController::class)->group(function () {
 });
 
 Route::prefix('posts')->controller(PostController::class)
-->name('posts.')
-->group(function(){
-Route::get('/', 'index')->name('index');
-Route::get('/create', 'create')->name('create');
-Route::post('/', 'store')->name('store');
-Route::get('/{id}', 'edit')->name('edit');
-route::put('/{id}', 'update')->name('update');
-Route::get('/{id}/delete', 'delete')->name('delete');
-});
+    ->name('posts.')
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{id}', 'edit')->name('edit');
+        route::put('/{id}', 'update')->name('update');
+        Route::get('/{id}/delete', 'delete')->name('delete');
+    });
 Route::get('dangky', [AuthDangKy::class, 'dangky']);
 Route::post('dangky', [AuthDangKy::class, 'postdangky'])->name('postdangky');
 
 Route::get('dangnhap', [AuthDangKy::class, 'dangnhap'])->name('login');
 Route::post('dangnhap', [AuthDangKy::class, 'postdangnhap'])->name('postdangnhap');
 Route::get('dangxuat', [AuthDangKy::class, 'dangxuat'])->name('dangxuat');
-
-
-
-
-
-
