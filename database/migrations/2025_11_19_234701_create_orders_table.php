@@ -27,7 +27,7 @@ return new class extends Migration
             $table->decimal('shipping_fee', 10, 2)->default(0);
             $table->decimal('discount', 10, 2)->default(0);
             $table->decimal('total', 15, 2);
-
+            $table->boolean('is_cart')->default(true); // true = giỏ hàng, false = đơn thật
             $table->enum('status', ['pending', 'confirmed', 'processing', 'shipping', 'completed', 'canceled', 'refunded'])
                 ->default('pending');
             $table->text('note')->nullable();

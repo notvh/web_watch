@@ -8,7 +8,7 @@
 
     <div x-show="open" x-transition class="dropdown-menu dropdown-lg">
         <div class="dropdown-header">{{ $title ?? 'Menu' }}</div>
-        {{-- {{ $items }} --}}
+        {{ $items }}
         <div class="dropdown-footer"><a href="#" class="dropdown-item">Xem tất cả</a></div>
     </div>
 </div>

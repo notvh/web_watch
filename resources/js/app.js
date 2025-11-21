@@ -3,5 +3,3 @@ import './bootstrap';
 import './dangnhap.js';
 import './header.js';
 import './footer.js';
-import './admin/main.js';
-// import './layout/main.js';

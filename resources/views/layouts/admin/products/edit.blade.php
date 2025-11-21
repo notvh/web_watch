@@ -7,8 +7,8 @@
 @endpush
 
 @push('scripts')
-    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
+    {{-- <script>
         document.addEventListener('livewire:load', () => {
             $('.select2').select2();
         });
@@ -16,6 +16,6 @@
 @endpush
 @section('content')
 <div>
-    @livewire('admin.product-form')
+    @livewire('admin.product-form',['product' => $product])
 </div>
 @endsection

@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin') - TimeKeeper</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/admin/main.css',
+    // 'resources/js/admin/main.js'
+    ])
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -29,11 +31,7 @@
             <!-- Page Content -->
             <main class="flex-1 p-6 overflow-y-auto">
                 <div class="max-w-7xl mx-auto space-y-8">
-                    @isset($slot)
-                        {{ $slot }}
-                    @else
-                        @yield('content')
-                    @endisset
+                    @yield('content')
                 </div>
             </main>
         </div>

@@ -11,8 +11,8 @@
             Trang Chủ
         </x-admin.nav-item>
 
-        <x-admin.nav-item icon="fa-shopping-bag" onclick="toggleBanner()">
-            Giỏ hàng
+        <x-admin.nav-item href="{{ route('admin.orders.index') }}" icon="fa-shopping-bag">
+            Đơn hàng
         </x-admin.nav-item>
 
         <!-- Menu có submenu -->

@@ -2,16 +2,21 @@
 
 namespace App\Models;
 
+
+use Illuminate\Support\Str;
 use App\Models\ProductVariation;
 use Database\Factories\ProductFactory;
 use Database\Factories\ProductsFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Testing\Fluent\Concerns\Has;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
+    use SoftDeletes;
     use HasFactory;
     protected static function newFactory()
     {
@@ -146,5 +151,76 @@ class Product extends Model
             $q->where('has_variations', false)->where('stock', '>', 0)
                 ->orWhereHas('variations', fn($v) => $v->where('stock', '>', 0));
         });
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Tạo SKU cho sản phẩm chính (khi không có biến thể hoặc sản phẩm gốc)
+        static::creating(function ($product) {
+            if (empty($product->sku)) {
+                $product->sku = static::generateSku($product);
+            }
+        });
+
+        static::updating(function ($product) {
+            if ($product->isDirty('name')) {
+                // || $product->isDirty('brand_id')
+                $product->sku = static::generateSku($product);
+            }
+        });
+    }
+
+    /**
+     * Sinh SKU cho sản phẩm chính
+     * Ví dụ: ROLEX-DJ41-BLUE-001
+     */
+    public static function generateSku($product)
+    {
+        $brandCode = optional($product->brand)->slug ?? 'BRAND';
+        $brandCode = strtoupper(substr($brandCode, 0, 4)); // ROLE, OMEG, SEIK...
+
+        $nameCode = strtoupper(Str::slug($product->name));
+        $nameCode = preg_replace('/[^A-Z0-9]/', '', $nameCode);
+        $nameCode = substr($nameCode, 0, 10); // Giới hạn độ dài
+
+        $latest = static::where('sku', 'like', "{$brandCode}-{$nameCode}%")
+            ->latest('id')
+            ->first();
+
+        $number = 1;
+        if ($latest) {
+            preg_match('/-(\d+)$/', $latest->sku, $matches);
+            $number = isset($matches[1]) ? (int)$matches[1] + 1 : 1;
+        }
+
+        return sprintf('%s-%s-%03d', $brandCode, $nameCode, $number);
+    }
+    // Quan hệ xóa theo (khi xóa sản phẩm → xóa luôn biến thể)
+    protected static function booted()
+    {
+        static::deleting(function ($product) {
+            // Xóa ảnh trên storage
+            foreach ($product->images ?? [] as $image) {
+                Storage::disk('public')->delete($image);
+            }
+
+            // Xóa ảnh biến thể
+            $product->variations()
+            // ->withTrashed()
+            ->each(function ($variation) {
+                if ($variation->image) {
+                    Storage::disk('public')->delete($variation->image);
+                }
+            });
+
+            // Xóa biến thể (soft delete)
+            $product->variations()->delete();
+        });
+
+        // Khi khôi phục sản phẩm → khôi phục luôn biến thể
+        // static::restoring(function ($product) {
+        //     $product->variations()->restore();
+        // });
     }
 }

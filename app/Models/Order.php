@@ -23,7 +23,7 @@ class Order extends Model
         'discount',
         'total',
         'status',
-        'note'
+        'note',
     ];
 
     protected $casts = [
@@ -70,6 +70,20 @@ class Order extends Model
             'processing', 'shipping' => 'processing',
             'canceled', 'refunded' => 'pending',
             default => 'pending',
+        };
+    }
+    // app/Models/Order.php – thêm accessor
+    public function getStatusColorAttribute()
+    {
+        return match ($this->status) {
+            'pending'     => 'bg-orange-600 text-white',
+            'confirmed'   => 'bg-blue-600 text-white',
+            'processing'  => 'bg-purple-600 text-white',
+            'shipping'    => 'bg-indigo-600 text-white',
+            'completed'   => 'bg-green-600 text-white',
+            'canceled'    => 'bg-red-600 text-white',
+            'refunded'    => 'bg-gray-600 text-white',
+            default       => 'bg-gray-500 text-white',
         };
     }
 }

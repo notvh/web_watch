@@ -3,7 +3,6 @@
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
-@import './admin/main.css';
 
 /* === BẮT ĐẦU THAY THẾ TỪ ĐÂY === */
 
