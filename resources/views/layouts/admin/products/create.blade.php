@@ -16,5 +16,5 @@
 @endpush
 
 <div>
-    @livewire('product-form')
+    @livewire('admin.product-manager')
 </div>
